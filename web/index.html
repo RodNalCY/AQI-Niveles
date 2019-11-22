@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Multiplicar Números</title>
+<script>
+  
+function calcular_co(){
+  m1 = document.getElementById("co").value;
+  r = AQICO(m1);
+  document.getElementById("resultado").value = r;     
+  }
+
+  function Linear(AQIhigh, AQIlow, Conchigh, Conclow, Concentration) {
+	var linear;
+	var Conc = parseFloat(Concentration);
+	var a;
+	a = (Conc - Conclow) / (Conchigh - Conclow) * (AQIhigh - AQIlow) + AQIlow;
+	linear = Math.round(a);
+	return linear;
+}
+
+  //line104
+function AQICO(Concentration) {
+	var Conc = parseFloat(Concentration);
+	var c;
+	var AQI;
+	c = Math.floor(10 * Conc) / 10;
+	if (c >= 0 && c < 4.5) {
+		AQI = Linear(50, 0, 4.4, 0, c);
+	} else if (c >= 4.5 && c < 9.5) {
+		AQI = Linear(100, 51, 9.4, 4.5, c);
+	} else if (c >= 9.5 && c < 12.5) {
+		AQI = Linear(150, 101, 12.4, 9.5, c);
+	} else if (c >= 12.5 && c < 15.5) {
+		AQI = Linear(200, 151, 15.4, 12.5, c);
+	} else if (c >= 15.5 && c < 30.5) {
+		AQI = Linear(300, 201, 30.4, 15.5, c);
+	} else if (c >= 30.5 && c < 40.5) {
+		AQI = Linear(400, 301, 40.4, 30.5, c);
+	} else if (c >= 40.5 && c < 50.5) {
+		AQI = Linear(500, 401, 50.4, 40.5, c);
+	} else {
+		AQI = 'Out of Range';
+	}
+	return AQI;
+}
+  
+
+</script>
+</head>
+<body>
+
+<h1>CEO</h1>
+
+<form>
+  <table>
+    <tr>
+      <td>CO: </td>
+      <td><input type="text" id="co" value=0 onChange="calcular_co();"></td>
+      <td>PPM</td>
+    </tr>
+    <tr>
+      <td>Air Quality: </td>
+      <td><input type="text" id="resultado"></td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>
